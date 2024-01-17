@@ -1,0 +1,52 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Rock Paper Scissors Game</title>
+
+</head>
+<body>
+    <script>
+        function getComputerChoice(){
+            result = Math.floor((Math.random() * 3) + 1)
+            if (result == 1){
+                return ('Rock')
+            }else if (result == 2){
+                return ('Paper')
+            }else{
+                return ('Scissors')
+            }
+        }
+        
+        function playRound(playerSelect, computerSelect){
+            if (playerSelect.toLowerCase() == 'rock'&& computerSelect == 'Scissors'){
+                return ('You Win! Rock beats Scissors')
+            }else if  (playerSelect.toLowerCase() == 'paper'&& computerSelect == 'Rock'){
+                return ('You Win! Paper beats Rock')
+            }else if  (playerSelect.toLowerCase() == 'scissors'&& computerSelect == 'Paper'){
+                return ('You Win! Scissors beats Paper')
+            }else if  ( computerSelect == 'Rock'&& playerSelect.toLowerCase() == 'scissors'){
+                return ('You Lose! Rock beats Scissors')
+            }else if  (computerSelect == 'Paper'&& playerSelect.toLowerCase() == 'rock'){
+                return ('You Lose! Paper beats Rock')
+            }else if  (computerSelect == 'Scissors'&& playerSelect.toLowerCase() == 'paper'){
+                return ('You Lose! Scissors beats Paper')
+            }else {
+                return ('Its a draw')
+            }
+        }
+
+        const playerSelect = prompt('Rock, Paper or Scissors');
+        const computerSelect = getComputerChoice();
+        
+        function game(){
+                playRound(playerSelect, computerSelect)
+            }
+        console.log(playRound(playerSelect, computerSelect));
+
+           
+    </script>
+    
+</body>
+</html>
