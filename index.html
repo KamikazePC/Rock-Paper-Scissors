@@ -19,41 +19,84 @@
 
     <script>
         function getComputerChoice(){
-            result = Math.floor(Math.random() * 3);
-            if (result == 1){
-                return ('Rock')
-            }else if (result == 2){
-                return ('Paper')
-            }else{
-                return ('Scissors')
-            }
-        }
-        
-        function playRound(playerSelect, computerSelect){
-            if (playerSelect.toLowerCase() == 'rock'&& computerSelect == 'Scissors'){
-                return ('You Win! Rock beats Scissors')
-            }else if  (playerSelect.toLowerCase() == 'paper'&& computerSelect == 'Rock'){
-                return ('You Win! Paper beats Rock')
-            }else if  (playerSelect.toLowerCase() == 'scissors'&& computerSelect == 'Paper'){
-                return ('You Win! Scissors beats Paper')
-            }else if  ( computerSelect == 'Rock'&& playerSelect.toLowerCase() == 'scissors'){
-                return ('You Lose! Rock beats Scissors')
-            }else if  (computerSelect == 'Paper'&& playerSelect.toLowerCase() == 'rock'){
-                return ('You Lose! Paper beats Rock')
-            }else if  (computerSelect == 'Scissors'&& playerSelect.toLowerCase() == 'paper'){
-                return ('You Lose! Scissors beats Paper')
-            }else {
-                return ('Its a draw')
-            }
-        }
+        const choices = ['Rock', 'Paper', 'Scissors'];
+        const randomIndex = Math.floor(Math.random()*3);
+        return choices[randomIndex];
+       }
+       
+       function roundPlay(playerSelection){
+        const computerSelection = getComputerChoice();
 
-        const playerSelect = prompt('Rock, Paper or Scissors');
-        const computerSelect = getComputerChoice();
+        const selectionDiv = document.getElementById('selection')
         
-        function game(){
-                playRound(playerSelect, computerSelect)
+        selectionDiv.textContent = `Player selects ${playerSelection}`;
+        selectionDiv.textContent = `Computer selects ${computerSelection}`;
+
+
+
+        if (playerSelection === computerSelection.toLowerCase()) {
+            return "It's a tie! Replay the round.";
+         } else if (
+            (playerSelection === "rock" && computerSelection === "Scissors") ||
+            (playerSelection === "paper" && computerSelection === "Rock") ||
+            (playerSelection === "scissors" && computerSelection === "Paper")
+            ) {
+                playerScore++;
+                return `You win! ${playerSelection} beats ${computerSelection}.`;
+            } else {
+                computerScore++;
+                return `You lose! ${computerSelection} beats ${playerSelection}.`;
             }
-        console.log(playRound(playerSelect, computerSelect));
+
+
+        }
+    let playerScore = 0;
+    let computerScore = 0;
+    
+    function game(result){
+
+            const resultsDiv = document.getElementById("results");
+            resultsDiv.innerHTML = result;
+
+           
+            const scoreDiv = document.createElement('div');
+            scoreDiv.textContent = `Scores - Player: ${playerScore}, Computer: ${computerScore}`;
+            resultsDiv.appendChild(scoreDiv);
+
+            if(playerScore === 5 || computerScore ===5 ){
+                if (playerScore > computerScore) {
+                    resultsDiv.textContent += "Congratulations! You win the game!";
+                } else (playerScore < computerScore); {
+                    resultsDiv.textContent += "Sorry! You lose the game.";
+                }
+
+                // DIsable buttons after game ends
+                document.getElementById('rockBtn').disabled = true;
+                document.getElementById('paperBtn').disabled = true;
+                document.getElementById('scissorsBtn').disabled = true;
+
+            }
+        }
+        //Event Listeners for the buttons
+        document.getElementById('rockBtn').addEventListener('click', () =>{
+            const result = roundPlay("rock"); 
+            const playerSelection = 'rock';
+            game(result);
+        })
+
+        document.getElementById('paperBtn').addEventListener('click', () => {
+            const result = roundPlay("paper");
+            const playerSelection = 'rock';
+            game(result);
+        });
+
+        document.getElementById('scissorsBtn').addEventListener('click', () =>{
+            const result = roundPlay("scissors");
+            const playerSelection = 'rock';
+            game(result);
+        });
+
+
 
            
     </script>
